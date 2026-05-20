@@ -2,17 +2,136 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Movie;
+use App\Models\User;
 
 class MovieSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Movie::factory()->count(20)->create();
+        $users = User::pluck('id')->toArray();
+
+        $movies = [
+            ['titulo' => 'Cadena Perpetua', 'director' => 'Frank Darabont', 'anio' => 1994, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Dos presos forjan una amistad a lo largo de los años mientras intentan sobrevivir en una prisión cruel.'],
+            ['titulo' => 'El Padrino', 'director' => 'Francis Ford Coppola', 'anio' => 1972, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'El patriarca de una poderosa familia criminal transfiere el control a su hijo reacio.'],
+            ['titulo' => 'El Caballero Oscuro', 'director' => 'Christopher Nolan', 'anio' => 2008, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Batman une fuerzas con Gordon y Dent para enfrentar al caótico Joker.'],
+            ['titulo' => 'Pulp Fiction', 'director' => 'Quentin Tarantino', 'anio' => 1994, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Las vidas de dos sicarios, un boxeador y otros personajes se entrelazan en Los Ángeles.'],
+            ['titulo' => 'Forrest Gump', 'director' => 'Robert Zemeckis', 'anio' => 1994, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un hombre simple presencia eventos históricos mientras busca a su amor de la infancia.'],
+            ['titulo' => 'Origen', 'director' => 'Christopher Nolan', 'anio' => 2010, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un ladrón especializado en robar secretos del subconsciente debe implantar una idea en la mente de alguien.'],
+            ['titulo' => 'El club de la lucha', 'director' => 'David Fincher', 'anio' => 1999, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un empleado oficinista forma un club de lucha clandestino con un misterioso vendedor de jabón.'],
+            ['titulo' => 'Matrix', 'director' => 'Lana Wachowski', 'anio' => 1999, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un programador descubre que la realidad es una simulación creada por máquinas inteligentes.'],
+            ['titulo' => 'Gladiator', 'director' => 'Ridley Scott', 'anio' => 2000, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Un general romano traicionado busca venganza como gladiador en el Coliseo.'],
+            ['titulo' => 'Interestelar', 'director' => 'Christopher Nolan', 'anio' => 2014, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.'],
+            ['titulo' => 'El Señor de los Anillos: La Comunidad del Anillo', 'director' => 'Peter Jackson', 'anio' => 2001, 'genero' => 'Aventura', 'pais' => 'Nueva Zelanda', 'sinopsis' => 'Un hobbit emprende un viaje para destruir un anillo de poder malvado.'],
+            ['titulo' => 'El Señor de los Anillos: Las Dos Torres', 'director' => 'Peter Jackson', 'anio' => 2002, 'genero' => 'Aventura', 'pais' => 'Nueva Zelanda', 'sinopsis' => 'La comunidad se divide mientras la Guerra del Anillo se intensifica.'],
+            ['titulo' => 'El Señor de los Anillos: El Retorno del Rey', 'director' => 'Peter Jackson', 'anio' => 2003, 'genero' => 'Aventura', 'pais' => 'Nueva Zelanda', 'sinopsis' => 'La batalla final por la Tierra Media decide el destino de todos.'],
+            ['titulo' => 'El Rey León', 'director' => 'Roger Allers', 'anio' => 1994, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Un joven león huye de su reino tras la muerte de su padre y debe regresar para reclamar su lugar.'],
+            ['titulo' => 'Titanic', 'director' => 'James Cameron', 'anio' => 1997, 'genero' => 'Romance', 'pais' => 'USA', 'sinopsis' => 'Una historia de amor entre una aristócrata y un artista a bordo del trágico Titanic.'],
+            ['titulo' => 'Jurassic Park', 'director' => 'Steven Spielberg', 'anio' => 1993, 'genero' => 'Aventura', 'pais' => 'USA', 'sinopsis' => 'Científicos crean un parque de dinosaurios clonados que se descontrolan.'],
+            ['titulo' => 'Star Wars: Episodio IV Una Nueva Esperanza', 'director' => 'George Lucas', 'anio' => 1977, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un joven granjero se une a una rebelión para luchar contra el imperio galáctico.'],
+            ['titulo' => 'Star Wars: El Imperio Contraataca', 'director' => 'Irvin Kershner', 'anio' => 1980, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Los rebeldes luchan contra el Imperio mientras Luke entrenaba con Yoda.'],
+            ['titulo' => 'Star Wars: El Retorno del Jedi', 'director' => 'Richard Marquand', 'anio' => 1983, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'La batalla final entre la Alianza Rebelde y el Imperio Galáctico.'],
+            ['titulo' => 'Vengadores: Endgame', 'director' => 'Anthony Russo', 'anio' => 2019, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Los Vengadores viajan en el tiempo para deshacer el chasquido de Thanos.'],
+            ['titulo' => 'El Silencio de los Corderos', 'director' => 'Jonathan Demme', 'anio' => 1991, 'genero' => 'Terror', 'pais' => 'USA', 'sinopsis' => 'Una agente del FBI busca la ayuda de un asesino caníbal para atrapar a otro asesino.'],
+            ['titulo' => 'Salvar al Soldado Ryan', 'director' => 'Steven Spielberg', 'anio' => 1998, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Un grupo de soldados busca al único hermano sobreviviente de una familia durante la Segunda Guerra Mundial.'],
+            ['titulo' => 'Regreso al Futuro', 'director' => 'Robert Zemeckis', 'anio' => 1985, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un adolescente viaja accidentalmente al pasado y debe asegurar el futuro de sus padres.'],
+            ['titulo' => 'Toy Story', 'director' => 'John Lasseter', 'anio' => 1995, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Un vaquero de juguete y un astronauta rivalizan por el afecto de su dueño.'],
+            ['titulo' => 'Parásitos', 'director' => 'Bong Joon-ho', 'anio' => 2019, 'genero' => 'Drama', 'pais' => 'Corea del Sur', 'sinopsis' => 'Una familia pobre se infiltra en la vida de una familia rica con consecuencias impredecibles.'],
+            ['titulo' => 'La lista de Schindler', 'director' => 'Steven Spielberg', 'anio' => 1993, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un empresario alemán salva la vida de más de mil refugiados judíos durante el Holocausto.'],
+            ['titulo' => 'Uno de los nuestros', 'director' => 'Martin Scorsese', 'anio' => 1990, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'La historia real de Henry Hill y su vida en la mafia neoyorquina.'],
+            ['titulo' => 'El Padrino II', 'director' => 'Francis Ford Coppola', 'anio' => 1974, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Michael Corleone expande su imperio mientras recordamos los orígenes de su padre.'],
+            ['titulo' => 'El Padrino III', 'director' => 'Francis Ford Coppola', 'anio' => 1990, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Michael Corleone busca legitimar su imperio en sus últimos años.'],
+            ['titulo' => 'Coco', 'director' => 'Lee Unkrich', 'anio' => 2017, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Un niño viaja a la Tierra de los Muertos para descubrir la historia de su familia.'],
+            ['titulo' => 'Del revés', 'director' => 'Pete Docter', 'anio' => 2015, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Las emociones de una niña luchan por controlar su mente tras una mudanza.'],
+            ['titulo' => 'Buscando a Nemo', 'director' => 'Andrew Stanton', 'anio' => 2003, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Un pez payaso cruza el océano para rescatar a su hijo capturado.'],
+            ['titulo' => 'Los Increíbles', 'director' => 'Brad Bird', 'anio' => 2004, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Una familia de superhéroes debe ocultar sus poderes mientras salvan al mundo.'],
+            ['titulo' => 'Shrek', 'director' => 'Andrew Adamson', 'anio' => 2001, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Un ogro gruñón emprende una misión para rescatar a una princesa.'],
+            ['titulo' => 'Harry Potter y la piedra filosofal', 'director' => 'Chris Columbus', 'anio' => 2001, 'genero' => 'Aventura', 'pais' => 'Reino Unido', 'sinopsis' => 'Un niño descubre que es un mago y asiste a una escuela de magia.'],
+            ['titulo' => 'Harry Potter y las reliquias de la muerte II', 'director' => 'David Yates', 'anio' => 2011, 'genero' => 'Aventura', 'pais' => 'Reino Unido', 'sinopsis' => 'Harry enfrenta a Voldemort en la batalla final por Hogwarts.'],
+            ['titulo' => 'El Laberinto del Fauno', 'director' => 'Guillermo del Toro', 'anio' => 2006, 'genero' => 'Fantasia', 'pais' => 'España', 'sinopsis' => 'Una niña descubre un mundo mágico mientras su padrastro persigue a rebeldes en la posguerra.'],
+            ['titulo' => 'La vida es bella', 'director' => 'Roberto Benigni', 'anio' => 1997, 'genero' => 'Drama', 'pais' => 'Italia', 'sinopsis' => 'Un padre judío protege a su hijo de los horrores de un campo de concentración usando su imaginación.'],
+            ['titulo' => 'El show de Truman', 'director' => 'Peter Weir', 'anio' => 1998, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un hombre descubre que su vida entera es un reality show televisivo.'],
+            ['titulo' => 'American History X', 'director' => 'Tony Kaye', 'anio' => 1998, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un exneonazi intenta evitar que su hermano siga sus pasos violentos.'],
+            ['titulo' => 'El profesional', 'director' => 'Luc Besson', 'anio' => 1994, 'genero' => 'Acción', 'pais' => 'Francia', 'sinopsis' => 'Un asesino a sueldo protege a una niña cuya familia fue asesinada.'],
+            ['titulo' => 'Seven', 'director' => 'David Fincher', 'anio' => 1995, 'genero' => 'Terror', 'pais' => 'USA', 'sinopsis' => 'Dos detectives persiguen a un asesino que usa los siete pecados capitales como motivo.'],
+            ['titulo' => 'Ciudad de Dios', 'director' => 'Fernando Meirelles', 'anio' => 2002, 'genero' => 'Drama', 'pais' => 'Brasil', 'sinopsis' => 'La vida en una favela brasileña contada a través de los ojos de un joven fotógrafo.'],
+            ['titulo' => 'La milla verde', 'director' => 'Frank Darabont', 'anio' => 1999, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un guardia de prisión descubre que un recluso condenado a muerte posee un don milagroso.'],
+            ['titulo' => 'Bastardos sin gloria', 'director' => 'Quentin Tarantino', 'anio' => 2009, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Un grupo de soldados judíos infiltrados aterroriza a los nazis en la Francia ocupada.'],
+            ['titulo' => 'Django desencadenado', 'director' => 'Quentin Tarantino', 'anio' => 2012, 'genero' => 'Western', 'pais' => 'USA', 'sinopsis' => 'Un esclavo liberado se convierte en cazarrecompensas para rescatar a su esposa.'],
+            ['titulo' => 'Whiplash', 'director' => 'Damien Chazelle', 'anio' => 2014, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un joven baterista es sometido a un brutal entrenamiento por un instructor obsesivo.'],
+            ['titulo' => 'La La Land', 'director' => 'Damien Chazelle', 'anio' => 2016, 'genero' => 'Romance', 'pais' => 'USA', 'sinopsis' => 'Un músico y una actriz siguen sus sueños mientras se enamoran en Los Ángeles.'],
+            ['titulo' => 'Blade Runner 2049', 'director' => 'Denis Villeneuve', 'anio' => 2017, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un nuevo blade runner descubre un secreto que podría sumir a la sociedad en el caos.'],
+            ['titulo' => 'Dune', 'director' => 'Denis Villeneuve', 'anio' => 2021, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un joven noble debe proteger el recurso más valioso del universo en un planeta desértico.'],
+            ['titulo' => 'Mad Max: Furia en la carretera', 'director' => 'George Miller', 'anio' => 2015, 'genero' => 'Acción', 'pais' => 'Australia', 'sinopsis' => 'En un mundo postapocalíptico, un fugitivo ayuda a una mujer a cruzar el desierto.'],
+            ['titulo' => 'Eterno resplandor de una mente sin recuerdos', 'director' => 'Michel Gondry', 'anio' => 2004, 'genero' => 'Romance', 'pais' => 'USA', 'sinopsis' => 'Una pareja se somete a un procedimiento para borrar mutuamente sus recuerdos.'],
+            ['titulo' => 'Trainspotting', 'director' => 'Danny Boyle', 'anio' => 1996, 'genero' => 'Drama', 'pais' => 'Reino Unido', 'sinopsis' => 'Un grupo de heroinómanos escoceses intenta dejar las drogas mientras navegan por la vida.'],
+            ['titulo' => 'Memento', 'director' => 'Christopher Nolan', 'anio' => 2000, 'genero' => 'Suspense', 'pais' => 'USA', 'sinopsis' => 'Un hombre con pérdida de memoria a corto plazo busca al asesino de su esposa mediante fotos y tatuajes.'],
+            ['titulo' => 'El sexto sentido', 'director' => 'M. Night Shyamalan', 'anio' => 1999, 'genero' => 'Terror', 'pais' => 'USA', 'sinopsis' => 'Un niño que ve fantasmas recibe ayuda de un psicólogo infantil.'],
+            ['titulo' => 'Los sospechosos de siempre', 'director' => 'Bryan Singer', 'anio' => 1995, 'genero' => 'Suspense', 'pais' => 'USA', 'sinopsis' => 'Un interrogatorio revela la historia de cinco criminales y su misterioso jefe.'],
+            ['titulo' => 'Alien, el octavo pasajero', 'director' => 'Ridley Scott', 'anio' => 1979, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'La tripulación de una nave espacial es acechada por una criatura alienígena mortal.'],
+            ['titulo' => 'Aliens: El regreso', 'director' => 'James Cameron', 'anio' => 1986, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Ripley regresa a un planeta colonizado invadido por aliens para rescatar a los supervivientes.'],
+            ['titulo' => 'Terminator 2: El juicio final', 'director' => 'James Cameron', 'anio' => 1991, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un cyborg reprogramado protege a un niño del futuro de un enemigo más avanzado.'],
+            ['titulo' => 'Rocky', 'director' => 'John G. Avildsen', 'anio' => 1976, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un boxeador de Filadelfia recibe la oportunidad de enfrentar al campeón mundial.'],
+            ['titulo' => 'Indiana Jones: En busca del arca perdida', 'director' => 'Steven Spielberg', 'anio' => 1981, 'genero' => 'Aventura', 'pais' => 'USA', 'sinopsis' => 'Un arqueólogo aventurero compite contra los nazis por un arca bíblica.'],
+            ['titulo' => 'E.T. el extraterrestre', 'director' => 'Steven Spielberg', 'anio' => 1982, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un niño hace amistad con un extraterrestre varado en la Tierra.'],
+            ['titulo' => 'El bueno, el feo y el malo', 'director' => 'Sergio Leone', 'anio' => 1966, 'genero' => 'Western', 'pais' => 'Italia', 'sinopsis' => 'Tres pistoleros compiten por encontrar un tesoro enterrado en un cementerio.'],
+            ['titulo' => 'Lo que el viento se llevó', 'director' => 'Victor Fleming', 'anio' => 1939, 'genero' => 'Romance', 'pais' => 'USA', 'sinopsis' => 'Una mujer sureña lucha por sobrevivir durante la Guerra Civil estadounidense.'],
+            ['titulo' => 'Casablanca', 'director' => 'Michael Curtiz', 'anio' => 1942, 'genero' => 'Romance', 'pais' => 'USA', 'sinopsis' => 'Un cínico dueño de un club en Casablanca se reencuentra con un amor del pasado.'],
+            ['titulo' => 'Psicosis', 'director' => 'Alfred Hitchcock', 'anio' => 1960, 'genero' => 'Terror', 'pais' => 'USA', 'sinopsis' => 'Una secretaria que roba dinero se aloja en un motel regentado por un psicópata.'],
+            ['titulo' => 'La naranja mecánica', 'director' => 'Stanley Kubrick', 'anio' => 1971, 'genero' => 'Ciencia ficción', 'pais' => 'Reino Unido', 'sinopsis' => 'Un joven delincuente es sometido a un experimento para curar su violencia.'],
+            ['titulo' => '2001: Una odisea del espacio', 'director' => 'Stanley Kubrick', 'anio' => 1968, 'genero' => 'Ciencia ficción', 'pais' => 'Reino Unido', 'sinopsis' => 'Una misteriosa estructura alienígena lleva a la tripulación de una nave a los confines del sistema solar.'],
+            ['titulo' => 'El resplandor', 'director' => 'Stanley Kubrick', 'anio' => 1980, 'genero' => 'Terror', 'pais' => 'Reino Unido', 'sinopsis' => 'Un escritor enloquece mientras cuida un hotel aislado con su familia.'],
+            ['titulo' => 'Akira', 'director' => 'Katsuhiro Otomo', 'anio' => 1988, 'genero' => 'Animación', 'pais' => 'Japón', 'sinopsis' => 'En un Tokio postapocalíptico, un joven desarrolla poderes psíquicos devastadores.'],
+            ['titulo' => 'El viaje de Chihiro', 'director' => 'Hayao Miyazaki', 'anio' => 2001, 'genero' => 'Animación', 'pais' => 'Japón', 'sinopsis' => 'Una niña entra en un mundo de espíritus y debe trabajar en una casa de baños para salvar a sus padres.'],
+            ['titulo' => 'Mi vecino Totoro', 'director' => 'Hayao Miyazaki', 'anio' => 1988, 'genero' => 'Animación', 'pais' => 'Japón', 'sinopsis' => 'Dos niñas se mudan al campo y descubren criaturas mágicas del bosque.'],
+            ['titulo' => 'La princesa Mononoke', 'director' => 'Hayao Miyazaki', 'anio' => 1997, 'genero' => 'Animación', 'pais' => 'Japón', 'sinopsis' => 'Un joven guerrero busca mediar entre los dioses del bosque y la humanidad industrializada.'],
+            ['titulo' => 'Spider-Man: Un nuevo universo', 'director' => 'Bob Persichetti', 'anio' => 2018, 'genero' => 'Animación', 'pais' => 'USA', 'sinopsis' => 'Un joven de Brooklyn descubre que no es el único Spider-Man en el multiverso.'],
+            ['titulo' => 'Iron Man', 'director' => 'Jon Favreau', 'anio' => 2008, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Un multimillonario construye un traje blindado para escapar de sus captores.'],
+            ['titulo' => 'Spider-Man 2', 'director' => 'Sam Raimi', 'anio' => 2004, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Peter Parker enfrenta al Doctor Octopus mientras lidia con sus responsabilidades.'],
+            ['titulo' => 'X-Men', 'director' => 'Bryan Singer', 'anio' => 2000, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Mutantes con habilidades especiales luchan por la aceptación en un mundo que les teme.'],
+            ['titulo' => 'Logan', 'director' => 'James Mangold', 'anio' => 2017, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Un envejecido Wolverine protege a una joven mutante mientras huyen de sus perseguidores.'],
+            ['titulo' => 'Guardianes de la Galaxia', 'director' => 'James Gunn', 'anio' => 2014, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Un grupo de inadaptados espaciales une fuerzas para proteger un poderoso orbe.'],
+            ['titulo' => 'Thor: Ragnarok', 'director' => 'Taika Waititi', 'anio' => 2017, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Thor debe escapar de un planeta alienígena para salvar Asgard de Hela.'],
+            ['titulo' => 'Black Panther', 'director' => 'Ryan Coogler', 'anio' => 2018, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'El rey de Wakanda defiende su nación de una amenaza externa.'],
+            ['titulo' => 'Joker', 'director' => 'Todd Phillips', 'anio' => 2019, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un cómico fracasado se transforma en el emblemático criminal de Gotham.'],
+            ['titulo' => 'Batman Begins', 'director' => 'Christopher Nolan', 'anio' => 2005, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Bruce Wayne viaja por el mundo para entrenarse y convertirse en Batman.'],
+            ['titulo' => 'El caballero oscuro: La leyenda renace', 'director' => 'Christopher Nolan', 'anio' => 2012, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Ocho años después, Batman debe enfrentar a Bane mientras Gotham está en peligro.'],
+            ['titulo' => 'John Wick', 'director' => 'Chad Stahelski', 'anio' => 2014, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Un exasesino regresa del retiro para vengar a su perro asesinado por una mafia.'],
+            ['titulo' => 'Top Gun: Maverick', 'director' => 'Joseph Kosinski', 'anio' => 2022, 'genero' => 'Acción', 'pais' => 'USA', 'sinopsis' => 'Treinta años después, Maverick entrena a una nueva generación de pilotos de élite.'],
+            ['titulo' => 'Atrapame si puedes', 'director' => 'Steven Spielberg', 'anio' => 2002, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un joven estafador es perseguido por un agente del FBI en todo el mundo.'],
+            ['titulo' => 'La terminal', 'director' => 'Steven Spielberg', 'anio' => 2004, 'genero' => 'Comedia', 'pais' => 'USA', 'sinopsis' => 'Un hombre queda atrapado en un aeropuerto tras un golpe de estado en su país.'],
+            ['titulo' => 'Tiempos modernos', 'director' => 'Charles Chaplin', 'anio' => 1936, 'genero' => 'Comedia', 'pais' => 'USA', 'sinopsis' => 'Un trabajador de fábrica lucha por sobrevivir en la era industrial moderna.'],
+            ['titulo' => 'El gran dictador', 'director' => 'Charles Chaplin', 'anio' => 1940, 'genero' => 'Comedia', 'pais' => 'USA', 'sinopsis' => 'Un barbero judío se hace pasar por un dictador para salvar a su pueblo.'],
+            ['titulo' => 'Scarface', 'director' => 'Brian De Palma', 'anio' => 1983, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un inmigrante cubano asciende en el mundo del narcotráfico en Miami.'],
+            ['titulo' => 'El gran Lebowski', 'director' => 'Joel Coen', 'anio' => 1998, 'genero' => 'Comedia', 'pais' => 'USA', 'sinopsis' => 'Un desempleado amante del bowling es confundido con un millonario.'],
+            ['titulo' => 'Fargo', 'director' => 'Joel Coen', 'anio' => 1996, 'genero' => 'Suspense', 'pais' => 'USA', 'sinopsis' => 'Un hombre contrata a dos delincuentes para secuestrar a su esposa con resultados desastrosos.'],
+            ['titulo' => 'No es país para viejos', 'director' => 'Joel Coen', 'anio' => 2007, 'genero' => 'Suspense', 'pais' => 'USA', 'sinopsis' => 'Un cazador encuentra dinero de un narcotráfico y es perseguido por un asesino implacable.'],
+            ['titulo' => 'Infiltrados', 'director' => 'Martin Scorsese', 'anio' => 2006, 'genero' => 'Suspense', 'pais' => 'USA', 'sinopsis' => 'Un policía encubierto y un topo de la mafia intentan descubrirse mutuamente.'],
+            ['titulo' => 'El lobo de Wall Street', 'director' => 'Martin Scorsese', 'anio' => 2013, 'genero' => 'Comedia', 'pais' => 'USA', 'sinopsis' => 'La historia real de un corredor de bolsa que amasó una fortuna mediante fraudes.'],
+            ['titulo' => 'Taxi Driver', 'director' => 'Martin Scorsese', 'anio' => 1976, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un veterano de Vietnam solitario conduce un taxi por las noches en Nueva York.'],
+            ['titulo' => 'Doce hombres sin piedad', 'director' => 'Sidney Lumet', 'anio' => 1957, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Doce jurados deliberan sobre el veredicto de un joven acusado de asesinato.'],
+            ['titulo' => 'Con faldas y a lo loco', 'director' => 'Billy Wilder', 'anio' => 1959, 'genero' => 'Comedia', 'pais' => 'USA', 'sinopsis' => 'Dos músicos se disfrazan de mujeres para huir de la mafia.'],
+            ['titulo' => 'El apartamento', 'director' => 'Billy Wilder', 'anio' => 1960, 'genero' => 'Romance', 'pais' => 'USA', 'sinopsis' => 'Un empleado presta su apartamento a sus jefes para sus citas amorosas.'],
+            ['titulo' => 'Senderos de gloria', 'director' => 'Stanley Kubrick', 'anio' => 1957, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un coronel defiende a sus soldados acusados de cobardía durante la Primera Guerra Mundial.'],
+            ['titulo' => 'Platoon', 'director' => 'Oliver Stone', 'anio' => 1986, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un joven soldado experimenta los horrores de la Guerra de Vietnam.'],
+            ['titulo' => 'Apocalypse Now', 'director' => 'Francis Ford Coppola', 'anio' => 1979, 'genero' => 'Drama', 'pais' => 'USA', 'sinopsis' => 'Un capitán viaja río arriba por Camboya para asesinar a un coronel renegado.'],
+            ['titulo' => 'La chaqueta metálica', 'director' => 'Stanley Kubrick', 'anio' => 1987, 'genero' => 'Drama', 'pais' => 'Reino Unido', 'sinopsis' => 'Un grupo de reclutas marines es entrenado para la guerra de Vietnam.'],
+            ['titulo' => 'Hasta el último hombre', 'director' => 'Mel Gibson', 'anio' => 2016, 'genero' => 'Drama', 'pais' => 'Australia', 'sinopsis' => 'Un objetor de conciencia salva vidas como médico en la Segunda Guerra Mundial sin disparar un arma.'],
+            ['titulo' => 'Dunkerque', 'director' => 'Christopher Nolan', 'anio' => 2017, 'genero' => 'Acción', 'pais' => 'Reino Unido', 'sinopsis' => 'La evacuación de tropas aliadas de la playa de Dunkerque durante la Segunda Guerra Mundial.'],
+            ['titulo' => 'Gravity', 'director' => 'Alfonso Cuarón', 'anio' => 2013, 'genero' => 'Ciencia ficción', 'pais' => 'USA', 'sinopsis' => 'Dos astronautas luchan por sobrevivir tras quedar a la deriva en el espacio.'],
+            ['titulo' => 'El pianista', 'director' => 'Roman Polanski', 'anio' => 2002, 'genero' => 'Drama', 'pais' => 'Polonia', 'sinopsis' => 'Un músico judío polaco sobrevive al Holocausto escondido en Varsovia.'],
+            ['titulo' => 'Amélie', 'director' => 'Jean-Pierre Jeunet', 'anio' => 2001, 'genero' => 'Comedia', 'pais' => 'Francia', 'sinopsis' => 'Una joven parisina decide mejorar la vida de quienes la rodean de forma anónima.'],
+            ['titulo' => 'Slumdog Millionaire', 'director' => 'Danny Boyle', 'anio' => 2008, 'genero' => 'Drama', 'pais' => 'Reino Unido', 'sinopsis' => 'Un joven de los barrios bajos de Mumbai participa en un concurso televisivo.'],
+        ];
+
+        $adminId = User::where('role', 'admin')->value('id');
+
+        foreach ($movies as $movie) {
+            Movie::create(array_merge($movie, [
+                'imagen_url' => null,
+                'user_id' => $adminId,
+            ]));
+        }
     }
 }

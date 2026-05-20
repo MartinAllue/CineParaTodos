@@ -6,12 +6,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body class="bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold text-danger" href="{{ route('movies.index') }}">
-                Gestión de Películas
+            <a class="navbar-brand fw-bold text-white fs-3" href="{{ route('movies.index') }}">
+                CineParaTodos
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -21,6 +22,12 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('movies.index') ? 'active' : '' }}" href="{{ route('movies.index') }}">Películas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('reviews.index') ? 'active' : '' }}" href="{{ route('reviews.index') }}">Reseñas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('ratings.index') ? 'active' : '' }}" href="{{ route('ratings.index') }}">Valoraciones</a>
+                    </li>
                     @auth
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
@@ -29,6 +36,19 @@
                 </ul>
                 <ul class="navbar-nav">
                     @auth
+                        @if(Auth::user()->isAdmin())
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Panel</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.users') }}">Usuarios</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.reviews') }}">Comentarios</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('movies.create') }}">Nueva Película</a></li>
+                                </ul>
+                            </li>
+                        @endif
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 {{ Auth::user()->name }}
@@ -73,7 +93,7 @@
     @endif
 
     @isset($header)
-        <header class="bg-dark text-white py-3">
+        <header class="bg-danger text-white py-3">
             <div class="container">
                 {{ $header }}
             </div>
@@ -87,6 +107,6 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
 </body>
 </html>

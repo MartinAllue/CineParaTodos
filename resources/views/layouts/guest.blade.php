@@ -7,14 +7,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-dark">
-    <div class="min-vh-100 d-flex flex-column align-items-center justify-content-center">
+<body>
+    <div class="min-vh-100 d-flex flex-column align-items-center justify-content-center" style="background: linear-gradient(135deg, #1a1a2e 0%, #dc3545 100%);">
         <div class="text-center mb-4">
-            <a href="{{ route('movies.index') }}" class="text-danger fw-bold text-decoration-none" style="font-size: 2rem;">
-                Gestión de Películas
+            <a href="{{ route('movies.index') }}" class="text-white fw-bold text-decoration-none" style="font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                CineParaTodos
             </a>
+            <p class="text-white-50 mt-2">Tu portal de cine</p>
         </div>
-        <div class="card bg-secondary text-white" style="width: 100%; max-width: 450px;">
+        <div class="card bg-dark text-white border-0 shadow-lg" style="width: 100%; max-width: 450px;">
             <div class="card-body p-4">
                 {{ $slot }}
             </div>

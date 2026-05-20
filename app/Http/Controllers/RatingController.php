@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class RatingController extends Controller
 {
-    public function __construct()
+    /**
+     * Mostrar todas las valoraciones
+     */
+    public function index()
     {
-        $this->middleware('auth'); // Solo usuarios logueados
+        $ratings = Rating::with('user', 'movie')->latest()->paginate(15);
+        return view('ratings.index', compact('ratings'));
     }
 
     public function store(Request $request, Movie $movie)
