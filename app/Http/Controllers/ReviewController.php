@@ -35,40 +35,13 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request, Movie $movie)
     {
-        // Verifico si ya existe review del usuario para esta película
-        $validated = $request->validated();
-        $userId = Auth::id();
-
-        \Illuminate\Support\Facades\Log::debug('ReviewController@store called', [
-            'user_id' => $userId,
-            'movie_id' => $movie->id,
-            'movie_exists' => Movie::where('id', $movie->id)->exists(),
-            'user_exists' => \App\Models\User::where('id', $userId)->exists(),
-            'validated' => $validated,
-        ]);
-
-        try {
-            $review = Review::updateOrCreate(
-                [
-                    'user_id' => $userId,
-                    'movie_id' => $movie->id,
-                ],
-                $validated
-            );
-
-            \Illuminate\Support\Facades\Log::debug('Review saved successfully', [
-                'review_id' => $review->id,
-                'title' => $review->title,
-                'content_length' => strlen($review->content ?? ''),
-            ]);
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Review save failed', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-            return redirect()->route('movies.show', $movie->id)
-                ->with('error', 'Error al guardar el comentario: ' . $e->getMessage());
-        }
+        $review = Review::updateOrCreate(
+            [
+                'user_id' => Auth::id(),
+                'movie_id' => $movie->id,
+            ],
+            $request->validated()
+        );
 
         return redirect()->route('movies.show', $movie->id)
             ->with('success', 'Tu comentario ha sido guardado.');
